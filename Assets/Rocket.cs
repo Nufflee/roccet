@@ -111,8 +111,6 @@ public class Rocket : MonoBehaviour
 
       float thrust = accelerationX * 0.6f;
 
-      print(thrust);
-
       if (state == State.PoweredFlight)
       {
         ParticleSystem.MainModule mainModule = FIRE.main;
@@ -142,11 +140,11 @@ public class Rocket : MonoBehaviour
                            * Quaternion.AngleAxis(-pitch, Vector3.back)
                            * Quaternion.AngleAxis(-roll, Vector3.up);
 
-      Quaternion tvcRotation = Quaternion.AngleAxis(servoZ, Vector3.back)
-                               * Quaternion.AngleAxis(servoY, Vector3.right);
+      Quaternion tvcRotation = Quaternion.AngleAxis(servoY, Vector3.back)
+                               * Quaternion.AngleAxis(servoZ, Vector3.right);
 
-      FIRE.transform.rotation = Quaternion.Euler(-90, 0, 0) * tvcRotation;
-      smokeParticles.transform.rotation = Quaternion.Euler(90, 0, 0) * tvcRotation;
+            FIRE.transform.rotation = transform.rotation * Quaternion.Euler(-90, 0, 0) * tvcRotation;
+            smokeParticles.transform.rotation = transform.rotation * Quaternion.Euler(90, 0, 0) * tvcRotation;
 
       if (internalState <= 2)
       {
