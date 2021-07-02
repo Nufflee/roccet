@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public enum CameraMode
 {
@@ -22,23 +23,24 @@ public class Rocket : MonoBehaviour
   public TextAsset logFile;
   public ParticleSystem FIRE;
   public ParticleSystem smokeParticles;
+  public GameObject motor;
 
   private Dictionary<string, List<string>> values = new Dictionary<string, List<string>>();
   private int flightStartIndex;
   private int flightCurrentIndex;
   private float flightStartTime;
-  private Camera camera;
-  private Rigidbody rigidbody;
+  private new Camera camera;
+  private new Rigidbody rigidbody;
   private State state;
 
   // Start is called before the first frame update
   private void Start()
   {
     camera = Camera.main;
-    rigidbody = GetComponent<Rigidbody>();
+    rigidbody = GetComponentInChildren<Rigidbody>();
 
-    Debug.Assert(camera != null);
-    Debug.Assert(rigidbody != null);
+    Assert.IsNotNull(camera);
+    Assert.IsNotNull(rigidbody);
 
     string[] lines = logFile.text.Split('\n');
 
@@ -114,7 +116,7 @@ public class Rocket : MonoBehaviour
       if (state == State.PoweredFlight)
       {
         ParticleSystem.MainModule mainModule = FIRE.main;
-        mainModule.startSpeed = -thrust;
+        mainModule.startSpeed = -thrust / 2;
       }
       else
       {
@@ -136,15 +138,13 @@ public class Rocket : MonoBehaviour
         camera.transform.LookAt(transform.position);
       }
 
-      transform.rotation = Quaternion.AngleAxis(-yaw, Vector3.right)
-                           * Quaternion.AngleAxis(-pitch, Vector3.back)
-                           * Quaternion.AngleAxis(-roll, Vector3.up);
+      transform.rotation = Quaternion.AngleAxis(-yaw, Vector3.right) *
+                           Quaternion.AngleAxis(-pitch, Vector3.back) *
+                           Quaternion.AngleAxis(-roll, Vector3.up);
 
-      Quaternion tvcRotation = Quaternion.AngleAxis(servoY, Vector3.back)
-                               * Quaternion.AngleAxis(servoZ, Vector3.right);
-
-            FIRE.transform.rotation = transform.rotation * Quaternion.Euler(-90, 0, 0) * tvcRotation;
-            smokeParticles.transform.rotation = transform.rotation * Quaternion.Euler(90, 0, 0) * tvcRotation;
+      motor.transform.localRotation = Quaternion.Euler(-90, 0, 0) *
+                                      Quaternion.AngleAxis(servoY, Vector3.back) *
+                                      Quaternion.AngleAxis(servoZ, Vector3.right);
 
       if (internalState <= 2)
       {
