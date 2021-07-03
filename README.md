@@ -2,6 +2,8 @@
 
 Work in progress 3D model rocket visualizer program.
 
+Developed in Unity 2021.1.13f1.
+
 ## TODO
 - [ ] Configuration UI
   - [ ] Model import
@@ -16,19 +18,21 @@ Work in progress 3D model rocket visualizer program.
 - [ ] Video file export
 - [ ] Better motor exhaust VFX
 - [ ] Better scenery
-  - Real life map data?
+  - [ ] Launchpad
+  - [ ] Seemingly infinite terrain
   - Grass, clouds, other props etc.
-  - Launchpad
 - [ ] Parachutes
+- [ ] Multiple rockets
+  - For [REDACTED] vis stuff.
 - [ ] Clean up the Unity project
 
 ### Stretch goals
 - [ ] Timeline?
   - [ ] Mark various events (burnout, apogee, time scale transitions) and state transitions (like for Rigidbody state)
-- [ ] Multiple rockets
 - [ ] Scriptable rockets
   - A standardized abstract/"frontend" API where CSV data would just be one of the "backends"
   - Could even support scripting at runtime through C# CompilerServices or a different scripting language
+- [ ] Real life map data for scenery
 
 ## Credits
 - Rocket and Motor model by [ZegesMenden](https://github.com/zegesmenden)
