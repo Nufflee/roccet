@@ -10307,11 +10307,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf1fe3aa5ba079c4c89d0e4cee1f1d79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraMode: 1
+  cameraMode: 0
   logFile: {fileID: 4900000, guid: 82d188dbe3e2e364d9e1d6f2bfc9c00d, type: 3}
   FIRE: {fileID: 431751996}
   smokeParticles: {fileID: 879194053}
   motor: {fileID: 2074485172}
+  mass: 0.68
 --- !u!1 &1513248108
 GameObject:
   m_ObjectHideFlags: 0
