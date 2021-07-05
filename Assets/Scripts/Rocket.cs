@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -43,7 +44,18 @@ public class Rocket : MonoBehaviour
     Assert.IsNotNull(camera);
     Assert.IsNotNull(rigidbody);
 
-    string[] lines = logFile.text.Split('\n');
+    string data;
+    if (logFile == null) {
+            data = File.ReadAllText(PlayerPrefs.GetString("filepath"));
+            print(data);
+    }
+    else
+        data = logFile.text;
+
+
+
+
+    string[] lines = data.Split('\n');
 
     string[] fields = lines[0].Split(',');
 
